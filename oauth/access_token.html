@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>skz3</title>
+  <script type="text/javascript" src="../js/oauth.js"></script>
+  <script type="text/javascript" src="../js/sha1.js"></script>
+  <script type="text/javascript" src="../js/skz3_oauth.js"></script>
+</head>
+<body>
+<p>access_tokenを取得ボタンを押したらウィンドウがポップアップするので、そこにある文字列をコピペしてフォームにはっつけて送信してください</p>
+<p>ウィンドウがポップアップブロックされている場合は、解除してください</p>
+<input type="button" onclick="TwitterOAuth.prototype.getAccessToken()" value="access_tokenを取得する"/>
+<form method="GET" action="../skz3.html" onsubmit="TwitterOAuth.prototype.setAccessToken(this)">
+  <input type="text" id="access_token"/>
+  <input type="submit" value="送信っ！"/>
+</form>
+
+</body>
+</html>

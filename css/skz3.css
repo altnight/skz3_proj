@@ -1,0 +1,107 @@
+.user_icon {
+  width: 28px;
+  height: 28px;
+}
+.retweeter_user_icon {
+  width: 18px;
+  height: 18px;
+}
+.column {
+  width: 250px;
+  height: auto;
+  border-left: solid 1px black;
+  border-top: solid 1px black;
+  float: left;
+}
+#column_box {
+  width: 4096px;
+  height: auto;
+  padding-top: 26px;
+}
+.tweet {
+  background-color: #dddddd;
+  border-right: solid 1px black;
+  border-bottom: solid 1px black;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -o-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+#header {
+  width: 4096px;
+  height: auto;
+  /*#MixinBorderRadius(5px);*/
+
+  /*white-space: nowrap;*/
+
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+#skz3 {
+  float: left;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6);
+}
+#status {
+  float: left;
+}
+#login_name {
+  float: left;
+}
+#count {
+  float: left;
+}
+#post_status {
+  float: left;
+}
+#stream_config {
+  float: left;
+}
+#other_config {
+  float: left;
+}
+#left_scroll {
+  float: left;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6);
+}
+#right_scroll {
+  float: left;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6);
+}
+#clearfix {
+  clear: both;
+}
+#stream_setting {
+  width: auto;
+  height: auto;
+  z-index: 1;
+  position: absolute;
+  display: none;
+  top: 0;
+  left: 0;
+  margin-top: 30px;
+  margin-left: 30px;
+  border: 1px solid black;
+  background-color: rgba(200, 200, 200, 0.8);
+}
+#other_setting {
+  width: auto;
+  height: auto;
+  z-index: 1;
+  position: absolute;
+  display: none;
+  top: 0;
+  left: 0;
+  margin-top: 30px;
+  margin-left: 30px;
+  border: 1px solid black;
+  background-color: rgba(200, 200, 200, 0.8);
+}
+.url {
+  font-size: 80%;
+}
+.time {
+  font-size: 80%;
+}
+.source {
+  font-size: 80%;
+}

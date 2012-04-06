@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>skz3</title>
+  <link rel="stylesheet" href="./css/skz3.css" />
+</head>
+<body>
+
+<h2>スカンディナヴィア半島3について</h2>
+<p>
+スカンディナヴィア半島3はWebブラウザ上で動くだらっとTwitterのListやTLを俯瞰するクライアントです。
+</p>
+<p>認証済みの方は<a href="./skz3.html">こちら</a>からどうぞ</p>
+<ul>
+	<li>Webクライアントなため、OS依存になりません</li>
+	<li>またサーバー内部でデータを保持することもないです(クライアントサイドで完結する)</li>
+	<li>OAuthが若干手間ですがブラウザ毎に1度だけ、コピペでできます</li>
+  <li>動作確認は Chrome 18, Opera 11.62 で確認してます。たぶんFirefoxでも動きます。IE？知りません</li>
+  <li>ちなみにPublicリストをとってくるだけとかSearchするだけならOAuthしなくても使えます(警告がウザいかもだけど)</li>
+  <li>作成者::<a href="https://twitter.com/#!/altnight/">@altnight</a></li>
+</ul>
+<h2>さっそく認証しよう</h2>
+<p><a href="./oauth/request_token.html">認証する</a>(2ステップ必要です )</p>
+<img src="./image/sample.png" alt="sample" width="600" height="400"/>
+<h3>注意点とか</h3>
+<ul>
+	<li>エラー処理がてきとうなので微妙な挙動をします</li>
+	<li>基本的にオレオレクライアントなので苦情は受け付けません。感謝なら受け取ります</li>
+	<li>仕様::DMは読めるけど返信できません。続きはWebで！</li>
+	<li>仕様::フォローしていない人からまわってきた公式RTは取り消せません。続きはWebで！</li>
+	<li>仕様::たまに読み込み順番とかよくわかんないことになってるけど、仕様です。そんなに高機能なのが使いたいならTweetDeckがあるよ？</li>
+	<li>仕様::技術不足により普通のTwitterクライアントみたいに継ぎ足して表示できませんでした。さーせん。そんなに高機能なのが使いたいならTweetDeckがあるよ？</li>
+	<li>かゆいところに手が届かないところがあるけれど、仕様です。そんなに高機能なのが使いたかったらTweetDeckがあるよ？</li>
+	<li>基本的にTweetDeck for Chromeが完璧過ぎるからそっち使えばいいと思うよ？</li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,379 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>skz3</title>
+  <script type="text/javascript" src="./js/oauth.js"></script>
+  <script type="text/javascript" src="./js/sha1.js"></script>
+  <script type="text/javascript" src="./js/jquery-1.7.1.js"></script>
+  <script type="text/javascript" src="./js/skz3.js"></script>
+  <link rel="stylesheet" href="./css/skz3.css" />
+</head>
+<body>
+<div id="header">
+  <span id="skz3">スカンディナヴィア半島3</span>
+  <span id="login_name">login as::</span>
+  <form action="" method="POST" id="post_status">
+    <textarea id="status" name="status" rows="1" cols="30"></textarea>
+    <span id="count"></span>
+  </form>
+  <iframe src="about:blank" name="dummy" frameborder="0" width="0" height="0" style="display:none"></iframe>
+  <button href="#" id="stream_config">Stream設定</button>
+  <button href="#" id="other_config">その他設定</button>
+  <table>
+    <tr>
+      <td id="left_scroll">←</td>
+      <td id="right_scroll">→</td>
+    </tr>
+  </table>
+</div>
+<div id="clearfix"></div>
+<div id="other_setting">
+  更新時刻::<span id="current_date"></span>
+  <span id="api_limit"> </span>
+  <form action="#" onsubmit="Setting.prototype.clearSettings();return true">
+    <input type="submit" value="すべての個人情報を消す"/>
+  </form>
+  <form action="#" onsubmit="Setting.prototype.recordUserStyle(this);alert('設定を反映するにはリロードしてください'); return false">
+    <span>User Style Sheet</span>
+    <textarea id="user_style" name="user_style" rows="10" cols="30"></textarea>
+    <input type="submit" value="送信っ！"/>
+  </form>
+  <form action="#" onsubmit="Setting.prototype.setAllowdisplayJapaneseHashtag(this); alert('設定を反映するにはリロードしてください。');return false;">
+    <input type="checkbox" name="JapaneseHashtag" value="allowJapaneseHashtag"/>
+    <input type="submit" value="日本語ハッシュタグを許可する"/>
+  </form>
+  <ul>
+    <li>制作者<a href="https://twitter.com/#!/altnight/">@altnight</a>に苦情を言う</li>
+    <li><a href="./index.html">index</a>にもどる</li>
+    <li>ちなみにキーボードの shift 右 左 でカラムごとにスクロールできます</li>
+    <li>ちなみに「r」と発言すると直前のポストを再送信します。ポストに失敗したらどうぞ</li>
+  </ul>
+</div>
+<div id="stream_setting">
+  <form action="#"onsubmit="Setting.prototype.setSetting(this); alert('設定を反映するにはリロードしてください');return false">
+  <div id="lists_window"></div>
+  <table>
+    <tr>
+      <td>Stream0</td>
+      <td>None</td>
+      <td>Home</td>
+      <td>Mention</td>
+      <td>DM</td>
+      <td>List</td>
+      <td>Search</td>
+      <td>list_owner</td>
+      <td>list_name</td>
+      <td>RT</td>
+      <td>検索文字列</td>
+      <!--<td></td>-->
+    </tr>
+    <tr>
+      <td>Stream1</td>
+      <td><input type="radio" name="Stream1" value="None" checked/></td>
+      <td><input type="radio" name="Stream1" value="Home" /></td>
+      <td><input type="radio" name="Stream1" value="Mention" /></td>
+      <td><input type="radio" name="Stream1" value="DM" /></td>
+      <td><input type="radio" name="Stream1" value="List" /></td>
+      <td><input type="radio" name="Stream1" value="Search" /></td>
+      <td><input type="text" name="list_owner1" class="list_owner" placeholder="リストの作者"/></td>
+      <td><input type="text" name="list_name1" class="list_name" placeholder="リストの名前"/></td>
+      <td><input type="checkbox" name="include_rts1" class="include_rts" /></td>
+      <td><input type="text" name="search1" class="search" placeholder="検索文字列"/></td>
+      <!--<td><input type="text" name="interval1" class="interval" placeholder="更新間隔(分)"/></td>-->
+    </tr>
+    <tr>
+      <td>Stream2</td>
+      <td><input type="radio" name="Stream2" value="None" checked/></td>
+      <td><input type="radio" name="Stream2" value="Home" /></td>
+      <td><input type="radio" name="Stream2" value="Mention" /></td>
+      <td><input type="radio" name="Stream2" value="DM" /></td>
+      <td><input type="radio" name="Stream2" value="List" /></td>
+      <td><input type="radio" name="Stream2" value="Search" /></td>
+      <td><input type="text" name="list_owner2" class="list_owner" placeholder="リストの作者"/></td>
+      <td><input type="text" name="list_name2" class="list_name" placeholder="リストの名前"/></td>
+      <td><input type="checkbox" name="include_rts2" class="include_rts" /></td>
+      <td><input type="text" name="search2" class="search" placeholder="検索文字列"/></td>
+      <!--<td><input type="text" name="interval2" class="interval" placeholder="更新間隔(分)"/></td>-->
+    </tr>
+    <tr>
+      <td>Stream3</td>
+      <td><input type="radio" name="Stream3" value="None" checked/></td>
+      <td><input type="radio" name="Stream3" value="Home" /></td>
+      <td><input type="radio" name="Stream3" value="Mention" /></td>
+      <td><input type="radio" name="Stream3" value="DM" /></td>
+      <td><input type="radio" name="Stream3" value="List" /></td>
+      <td><input type="radio" name="Stream3" value="Search" /></td>
+      <td><input type="text" name="list_owner3" class="list_owner" placeholder="リストの作者"/></td>
+      <td><input type="text" name="list_name3" class="list_name" placeholder="リストの名前"/></td>
+      <td><input type="checkbox" name="include_rts3" class="include_rts" /></td>
+      <td><input type="text" name="search3" class="search" placeholder="検索文字列"/></td>
+      <!--<td><input type="text" name="interval3" class="interval" placeholder="更新間隔(分)"/></td>-->
+    </tr>
+    <tr>
+      <td>Stream4</td>
+      <td><input type="radio" name="Stream4" value="None" checked/></td>
+      <td><input type="radio" name="Stream4" value="Home" /></td>
+      <td><input type="radio" name="Stream4" value="Mention" /></td>
+      <td><input type="radio" name="Stream4" value="DM" /></td>
+      <td><input type="radio" name="Stream4" value="List" /></td>
+      <td><input type="radio" name="Stream4" value="Search" /></td>
+      <td><input type="text" name="list_owner4" class="list_owner" placeholder="リストの作者"/></td>
+      <td><input type="text" name="list_name4" class="list_name" placeholder="リストの名前"/></td>
+      <td><input type="checkbox" name="include_rts4" class="include_rts" /></td>
+      <td><input type="text" name="search4" class="search" placeholder="検索文字列"/></td>
+      <!--<td><input type="text" name="interval4" class="interval" placeholder="更新間隔(分)"/></td>-->
+    </tr>
+    <tr>
+      <td>Stream5</td>
+      <td><input type="radio" name="Stream5" value="None" checked/></td>
+      <td><input type="radio" name="Stream5" value="Home" /></td>
+      <td><input type="radio" name="Stream5" value="Mention" /></td>
+      <td><input type="radio" name="Stream5" value="DM" /></td>
+      <td><input type="radio" name="Stream5" value="List" /></td>
+      <td><input type="radio" name="Stream5" value="Search" /></td>
+      <td><input type="text" name="list_owner5" class="list_owner" placeholder="リストの作者"/></td>
+      <td><input type="text" name="list_name5" class="list_name" placeholder="リストの名前"/></td>
+      <td><input type="checkbox" name="include_rts5" class="include_rts" /></td>
+      <td><input type="text" name="search5" class="search" placeholder="検索文字列"/></td>
+      <!--<td><input type="text" name="interval5" class="interval" placeholder="更新間隔(分)"/></td>-->
+    </tr>
+    <tr>
+      <td>Stream6</td>
+      <td><input type="radio" name="Stream6" value="None" checked/></td>
+      <td><input type="radio" name="Stream6" value="Home" /></td>
+      <td><input type="radio" name="Stream6" value="Mention" /></td>
+      <td><input type="radio" name="Stream6" value="DM" /></td>
+      <td><input type="radio" name="Stream6" value="List" /></td>
+      <td><input type="radio" name="Stream6" value="Search" /></td>
+      <td><input type="text" name="list_owner6" class="list_owner" placeholder="リストの作者"/></td>
+      <td><input type="text" name="list_name6" class="list_name" placeholder="リストの名前"/></td>
+      <td><input type="checkbox" name="include_rts6" class="include_rts" /></td>
+      <td><input type="text" name="search6" class="search" placeholder="検索文字列"/></td>
+      <!--<td><input type="text" name="interval6" class="interval" placeholder="更新間隔(分)"/></td>-->
+    </tr>
+    <tr>
+      <td>Stream7</td>
+      <td><input type="radio" name="Stream7" value="None" checked/></td>
+      <td><input type="radio" name="Stream7" value="Home" /></td>
+      <td><input type="radio" name="Stream7" value="Mention" /></td>
+      <td><input type="radio" name="Stream7" value="DM" /></td>
+      <td><input type="radio" name="Stream7" value="List" /></td>
+      <td><input type="radio" name="Stream7" value="Search" /></td>
+      <td><input type="text" name="list_owner7" class="list_owner" placeholder="リストの作者"/></td>
+      <td><input type="text" name="list_name7" class="list_name" placeholder="リストの名前"/></td>
+      <td><input type="checkbox" name="include_rts7" class="include_rts" /></td>
+      <td><input type="text" name="search7" class="search" placeholder="検索文字列"/></td>
+      <!--<td><input type="text" name="interval7" class="interval" placeholder="更新間隔(分)"/></td>-->
+    </tr>
+    <tr>
+      <td>Stream8</td>
+      <td><input type="radio" name="Stream8" value="None" checked/></td>
+      <td><input type="radio" name="Stream8" value="Home" /></td>
+      <td><input type="radio" name="Stream8" value="Mention" /></td>
+      <td><input type="radio" name="Stream8" value="DM" /></td>
+      <td><input type="radio" name="Stream8" value="List" /></td>
+      <td><input type="radio" name="Stream8" value="Search" /></td>
+      <td><input type="text" name="list_owner8" class="list_owner" placeholder="リストの作者"/></td>
+      <td><input type="text" name="list_name8" class="list_name" placeholder="リストの名前"/></td>
+      <td><input type="checkbox" name="include_rts8" class="include_rts" /></td>
+      <td><input type="text" name="search8" class="search" placeholder="検索文字列"/></td>
+      <!--<td><input type="text" name="interval8" class="interval" placeholder="更新間隔(分)"/></td>-->
+    </tr>
+    <tr>
+      <td>Stream9</td>
+      <td><input type="radio" name="Stream9" value="None" checked/></td>
+      <td><input type="radio" name="Stream9" value="Home" /></td>
+      <td><input type="radio" name="Stream9" value="Mention" /></td>
+      <td><input type="radio" name="Stream9" value="DM" /></td>
+      <td><input type="radio" name="Stream9" value="List" /></td>
+      <td><input type="radio" name="Stream9" value="Search" /></td>
+      <td><input type="text" name="list_owner9" class="list_owner" placeholder="リストの作者"/></td>
+      <td><input type="text" name="list_name9" class="list_name" placeholder="リストの名前"/></td>
+      <td><input type="checkbox" name="include_rts9" class="include_rts" /></td>
+      <td><input type="text" name="search9" class="search" placeholder="検索文字列"/></td>
+      <!--<td><input type="text" name="interval9" class="interval" placeholder="更新間隔(分)"/></td>-->
+    </tr>
+    <tr>
+      <td>Stream10</td>
+      <td><input type="radio" name="Stream10" value="None" checked/></td>
+      <td><input type="radio" name="Stream10" value="Home" /></td>
+      <td><input type="radio" name="Stream10" value="Mention" /></td>
+      <td><input type="radio" name="Stream10" value="DM" /></td>
+      <td><input type="radio" name="Stream10" value="List" /></td>
+      <td><input type="radio" name="Stream10" value="Search" /></td>
+      <td><input type="text" name="list_owner10" class="list_owner" placeholder="リストの作者"/></td>
+      <td><input type="text" name="list_name10" class="list_name" placeholder="リストの名前"/></td>
+      <td><input type="checkbox" name="include_rts10" class="include_rts" /></td>
+      <td><input type="text" name="search10" class="search" placeholder="検索文字列"/></td>
+      <!--<td><input type="text" name="interval10" class="interval" placeholder="更新間隔(分)"/></td>-->
+    </tr>
+    <tr>
+      <td>Stream11</td>
+      <td><input type="radio" name="Stream11" value="None" checked/></td>
+      <td><input type="radio" name="Stream11" value="Home" /></td>
+      <td><input type="radio" name="Stream11" value="Mention" /></td>
+      <td><input type="radio" name="Stream11" value="DM" /></td>
+      <td><input type="radio" name="Stream11" value="List" /></td>
+      <td><input type="radio" name="Stream11" value="Search" /></td>
+      <td><input type="text" name="list_owner11" class="list_owner" placeholder="リストの作者"/></td>
+      <td><input type="text" name="list_name11" class="list_name" placeholder="リストの名前"/></td>
+      <td><input type="checkbox" name="include_rts11" class="include_rts" /></td>
+      <td><input type="text" name="search11" class="search" placeholder="検索文字列"/></td>
+      <!--<td><input type="text" name="interval11" class="interval" placeholder="更新間隔(分)"/></td>-->
+    </tr>
+    <tr>
+      <td>Stream12</td>
+      <td><input type="radio" name="Stream12" value="None" checked/></td>
+      <td><input type="radio" name="Stream12" value="Home" /></td>
+      <td><input type="radio" name="Stream12" value="Mention" /></td>
+      <td><input type="radio" name="Stream12" value="DM" /></td>
+      <td><input type="radio" name="Stream12" value="List" /></td>
+      <td><input type="radio" name="Stream12" value="Search" /></td>
+      <td><input type="text" name="list_owner12" class="list_owner" placeholder="リストの作者"/></td>
+      <td><input type="text" name="list_name12" class="list_name" placeholder="リストの名前"/></td>
+      <td><input type="checkbox" name="include_rts12" class="include_rts" /></td>
+      <td><input type="text" name="search12" class="search" placeholder="検索文字列"/></td>
+      <!--<td><input type="text" name="interval12" class="interval" placeholder="更新間隔(分)"/></td>-->
+    </tr>
+    <tr>
+      <td>Stream13</td>
+      <td><input type="radio" name="Stream13" value="None" checked/></td>
+      <td><input type="radio" name="Stream13" value="Home" /></td>
+      <td><input type="radio" name="Stream13" value="Mention" /></td>
+      <td><input type="radio" name="Stream13" value="DM" /></td>
+      <td><input type="radio" name="Stream13" value="List" /></td>
+      <td><input type="radio" name="Stream13" value="Search" /></td>
+      <td><input type="text" name="list_owner13" class="list_owner" placeholder="リストの作者"/></td>
+      <td><input type="text" name="list_name13" class="list_name" placeholder="リストの名前"/></td>
+      <td><input type="checkbox" name="include_rts13" class="include_rts" /></td>
+      <td><input type="text" name="search13" class="search" placeholder="検索文字列"/></td>
+      <!--<td><input type="text" name="interval13" class="interval" placeholder="更新間隔(分)"/></td>-->
+    </tr>
+    <tr>
+      <td>Stream14</td>
+      <td><input type="radio" name="Stream14" value="None" checked/></td>
+      <td><input type="radio" name="Stream14" value="Home" /></td>
+      <td><input type="radio" name="Stream14" value="Mention" /></td>
+      <td><input type="radio" name="Stream14" value="DM" /></td>
+      <td><input type="radio" name="Stream14" value="List" /></td>
+      <td><input type="radio" name="Stream14" value="Search" /></td>
+      <td><input type="text" name="list_owner14" class="list_owner" placeholder="リストの作者"/></td>
+      <td><input type="text" name="list_name14" class="list_name" placeholder="リストの名前"/></td>
+      <td><input type="checkbox" name="include_rts14" class="include_rts" /></td>
+      <td><input type="text" name="search14" class="search" placeholder="検索文字列"/></td>
+      <!--<td><input type="text" name="interval14" class="interval" placeholder="更新間隔(分)"/></td>-->
+    </tr>
+    <tr>
+      <td>Stream15</td>
+      <td><input type="radio" name="Stream15" value="None" checked/></td>
+      <td><input type="radio" name="Stream15" value="Home" /></td>
+      <td><input type="radio" name="Stream15" value="Mention" /></td>
+      <td><input type="radio" name="Stream15" value="DM" /></td>
+      <td><input type="radio" name="Stream15" value="List" /></td>
+      <td><input type="radio" name="Stream15" value="Search" /></td>
+      <td><input type="text" name="list_owner15" class="list_owner" placeholder="リストの作者"/></td>
+      <td><input type="text" name="list_name15" class="list_name" placeholder="リストの名前"/></td>
+      <td><input type="checkbox" name="include_rts15" class="include_rts" /></td>
+      <td><input type="text" name="search15" class="search" placeholder="検索文字列"/></td>
+      <!--<td><input type="text" name="interval15" class="interval" placeholder="更新間隔(分)"/></td>-->
+    </tr>
+    <tr>
+      <td>Stream16</td>
+      <td><input type="radio" name="Stream16" value="None" checked/></td>
+      <td><input type="radio" name="Stream16" value="Home" /></td>
+      <td><input type="radio" name="Stream16" value="Mention" /></td>
+      <td><input type="radio" name="Stream16" value="DM" /></td>
+      <td><input type="radio" name="Stream16" value="List" /></td>
+      <td><input type="radio" name="Stream16" value="Search" /></td>
+      <td><input type="text" name="list_owner16" class="list_owner" placeholder="リストの作者"/></td>
+      <td><input type="text" name="list_name16" class="list_name" placeholder="リストの名前"/></td>
+      <td><input type="checkbox" name="include_rts16" class="include_rts" /></td>
+      <td><input type="text" name="search16" class="search" placeholder="検索文字列"/></td>
+      <!--<td><input type="text" name="interval16" class="interval" placeholder="更新間隔(分)"/></td>-->
+    </tr>
+    <tr>
+      <td>Stream17</td>
+      <td><input type="radio" name="Stream17" value="None" checked/></td>
+      <td><input type="radio" name="Stream17" value="Home" /></td>
+      <td><input type="radio" name="Stream17" value="Mention" /></td>
+      <td><input type="radio" name="Stream17" value="DM" /></td>
+      <td><input type="radio" name="Stream17" value="List" /></td>
+      <td><input type="radio" name="Stream17" value="Search" /></td>
+      <td><input type="text" name="list_owner17" class="list_owner" placeholder="リストの作者"/></td>
+      <td><input type="text" name="list_name17" class="list_name" placeholder="リストの名前"/></td>
+      <td><input type="checkbox" name="include_rts17" class="include_rts" /></td>
+      <td><input type="text" name="search17" class="search" placeholder="検索文字列"/></td>
+      <!--<td><input type="text" name="interval17" class="interval" placeholder="更新間隔(分)"/></td>-->
+    </tr>
+    <tr>
+      <td>Stream18</td>
+      <td><input type="radio" name="Stream18" value="None" checked/></td>
+      <td><input type="radio" name="Stream18" value="Home" /></td>
+      <td><input type="radio" name="Stream18" value="Mention" /></td>
+      <td><input type="radio" name="Stream18" value="DM" /></td>
+      <td><input type="radio" name="Stream18" value="List" /></td>
+      <td><input type="radio" name="Stream18" value="Search" /></td>
+      <td><input type="text" name="list_owner18" class="list_owner" placeholder="リストの作者"/></td>
+      <td><input type="text" name="list_name18" class="list_name" placeholder="リストの名前"/></td>
+      <td><input type="checkbox" name="include_rts18" class="include_rts" /></td>
+      <td><input type="text" name="search18" class="search" placeholder="検索文字列"/></td>
+      <!--<td><input type="text" name="interval18" class="interval" placeholder="更新間隔(分)"/></td>-->
+    </tr>
+    <tr>
+      <td>Stream19</td>
+      <td><input type="radio" name="Stream19" value="None" checked/></td>
+      <td><input type="radio" name="Stream19" value="Home" /></td>
+      <td><input type="radio" name="Stream19" value="Mention" /></td>
+      <td><input type="radio" name="Stream19" value="DM" /></td>
+      <td><input type="radio" name="Stream19" value="List" /></td>
+      <td><input type="radio" name="Stream19" value="Search" /></td>
+      <td><input type="text" name="list_owner19" class="list_owner" placeholder="リストの作者"/></td>
+      <td><input type="text" name="list_name19" class="list_name" placeholder="リストの名前"/></td>
+      <td><input type="checkbox" name="include_rts19" class="include_rts" /></td>
+      <td><input type="text" name="search19" class="search" placeholder="検索文字列"/></td>
+      <!--<td><input type="text" name="interval19" class="interval" placeholder="更新間隔(分)"/></td>-->
+    </tr>
+    <tr>
+      <td>Stream20</td>
+      <td><input type="radio" name="Stream20" value="None" checked/></td>
+      <td><input type="radio" name="Stream20" value="Home" /></td>
+      <td><input type="radio" name="Stream20" value="Mention" /></td>
+      <td><input type="radio" name="Stream20" value="DM" /></td>
+      <td><input type="radio" name="Stream20" value="List" /></td>
+      <td><input type="radio" name="Stream20" value="Search" /></td>
+      <td><input type="text" name="list_owner20" class="list_owner" placeholder="リストの作者"/></td>
+      <td><input type="text" name="list_name20" class="list_name" placeholder="リストの名前"/></td>
+      <td><input type="checkbox" name="include_rts20" class="include_rts" /></td>
+      <td><input type="text" name="search20" class="search" placeholder="検索文字列"/></td>
+      <!--<td><input type="text" name="interval20" class="interval" placeholder="更新間隔(分)"/></td>-->
+    </tr>
+  </table>
+  <input type="text" name="interval" placeholder="更新間隔(分)"/>
+  <input type="submit" value="送信っ！"/>
+  </form>
+</div>
+<div id="column_box">
+  <div id="column1" class="column"></div>
+  <div id="column2" class="column"></div>
+  <div id="column3" class="column"></div>
+  <div id="column4" class="column"></div>
+  <div id="column5" class="column"></div>
+  <div id="column6" class="column"></div>
+  <div id="column7" class="column"></div>
+  <div id="column8" class="column"></div>
+  <div id="column9" class="column"></div>
+  <div id="column10" class="column"></div>
+  <div id="column11" class="column"></div>
+  <div id="column12" class="column"></div>
+  <div id="column13" class="column"></div>
+  <div id="column14" class="column"></div>
+  <div id="column15" class="column"></div>
+  <div id="column16" class="column"></div>
+  <div id="column17" class="column"></div>
+  <div id="column18" class="column"></div>
+  <div id="column19" class="column"></div>
+  <div id="column20" class="column"></div>
+</div>
+</body>
+</html>
