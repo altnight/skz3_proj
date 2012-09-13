@@ -112,6 +112,7 @@ class API extends TwitterBase
         params =
             callback: "callback_lists"
             screen_name: screen_name
+            count: 40
         url = TwitterBase::setOAuth("GET", "#{TwitterBase.TWITTER_API}lists.json", params)
         TwitterBase::loadJSON(url)
 
@@ -387,8 +388,8 @@ class Oparate extends TwitterBase
         else
             TwitterBase::postAjax(url)
 
-    createRetweet: (id, protected) ->
-        if protected == "protected"
+    createRetweet: (id, _protected) ->
+        if _protected == "protected"
             alert "鍵垢です"
             return false
         params = null
@@ -677,11 +678,11 @@ $('.fav').live('click', ->
 $('.retweet').live('click', ->
     tweet = $(@).parent()
     id = tweet.attr('id')
-    protected = $("##{id} .protected").attr('alt')
+    _protected = $("##{id} .protected").attr('alt')
     #localStorageにRT情報を格納
     API::getStatus(id)
     if localStorage.getItem("toggle_rt_#{id}") == "false"
-        Oparate::createRetweet(id, protected)
+        Oparate::createRetweet(id, _protected)
         localStorage.setItem("toggle_rt_#{id}", "true")
         $(@).attr('src', './image/retweet_on.png')
     else if localStorage.getItem("toggle_rt_#{id}") == "true"
