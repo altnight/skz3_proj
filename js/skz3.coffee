@@ -2,8 +2,8 @@ class TwitterBase
 
     CONSUMER_KEY = "YOUR KEY"
     CONSUMER_SECRET = "YOUR KEY"
-    @TWITTER_ROOT = "https://twitter.com/#!/"
-    @TWITTER_API = "https://api.twitter.com/1/"
+    @TWITTER_ROOT = "https://twitter.com/"
+    @TWITTER_API = "https://api.twitter.com/1.1/"
 
     setOAuth: (method, api, params)->
         accessor =
@@ -61,7 +61,7 @@ class API extends TwitterBase
 
     destroyStatus: (id) ->
         params = id
-        url = TwitterBase::setOAuth("POST", "#{TwitterBase.TWITTER_API}statuses/destroy/#{id}.xml", params)
+        url = TwitterBase::setOAuth("POST", "#{TwitterBase.TWITTER_API}statuses/destroy/#{id}.json", params)
         if window.opera
             TwitterBase::postIframe(url)
         else
@@ -71,7 +71,7 @@ class API extends TwitterBase
         params =
             status: text
             in_reply_to_status_id: in_reply_to_status_id
-        url = TwitterBase::setOAuth("POST", "#{TwitterBase.TWITTER_API}statuses/update.xml", params)
+        url = TwitterBase::setOAuth("POST", "#{TwitterBase.TWITTER_API}statuses/update.json", params)
         if window.opera
             TwitterBase::postIframe(url)
         else
@@ -98,7 +98,7 @@ class API extends TwitterBase
         params =
             callback: "callback"
             include_entities: "True"
-        url = TwitterBase::setOAuth("GET", "#{TwitterBase.TWITTER_API}statuses/mentions.json", params)
+        url = TwitterBase::setOAuth("GET", "#{TwitterBase.TWITTER_API}statuses/mentions_timeline.json", params)
         TwitterBase::loadJSON(url)
 
     getDirectMessage: ->
@@ -113,7 +113,7 @@ class API extends TwitterBase
             callback: "callback_lists"
             screen_name: screen_name
             count: 40
-        url = TwitterBase::setOAuth("GET", "#{TwitterBase.TWITTER_API}lists.json", params)
+        url = TwitterBase::setOAuth("GET", "#{TwitterBase.TWITTER_API}/lists/list.json", params)
         TwitterBase::loadJSON(url)
 
     getListTimeline: (screen_name, list_name, include_rts) ->
@@ -143,7 +143,7 @@ class API extends TwitterBase
     getRetweetedByMe: ->
         params =
             callback: "callback_retweeted_by_me"
-        url = TwitterBase::setOAuth("GET", "#{TwitterBase.TWITTER_API}statuses/retweeted_by_me.json", params)
+        url = TwitterBase::setOAuth("GET", "#{TwitterBase.TWITTER_API}statuses/retweets_of_me.json", params)
         TwitterBase::loadJSON(url)
 
 class APILimit
@@ -374,7 +374,7 @@ class Oparate extends TwitterBase
 
     createFav: (id) ->
         params = null
-        url = TwitterBase::setOAuth("POST", "#{TwitterBase.TWITTER_API}favorites/create/#{id}.xml", params)
+        url = TwitterBase::setOAuth("POST", "#{TwitterBase.TWITTER_API}favorites/create/#{id}.json", params)
         if window.opera
             TwitterBase::postIframe(url)
         else
@@ -382,7 +382,7 @@ class Oparate extends TwitterBase
 
     destroyFav: (id) ->
         params = null
-        url = TwitterBase::setOAuth("POST", "#{TwitterBase.TWITTER_API}favorites/destroy/#{id}.xml", params)
+        url = TwitterBase::setOAuth("POST", "#{TwitterBase.TWITTER_API}favorites/destroy/#{id}.json", params)
         if window.opera
             TwitterBase::postIframe(url)
         else
@@ -393,7 +393,7 @@ class Oparate extends TwitterBase
             alert "鍵垢です"
             return false
         params = null
-        url = TwitterBase::setOAuth("POST", "#{TwitterBase.TWITTER_API}statuses/retweet/#{id}.xml", params)
+        url = TwitterBase::setOAuth("POST", "#{TwitterBase.TWITTER_API}statuses/retweet/#{id}.json", params)
         if window.opera
             TwitterBase::postIframe(url)
         else

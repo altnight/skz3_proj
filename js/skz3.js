@@ -12,9 +12,9 @@ TwitterBase = (function() {
 
   CONSUMER_SECRET = "YOUR KEY";
 
-  TwitterBase.TWITTER_ROOT = "https://twitter.com/#!/";
+  TwitterBase.TWITTER_ROOT = "https://twitter.com/";
 
-  TwitterBase.TWITTER_API = "https://api.twitter.com/1/";
+  TwitterBase.TWITTER_API = "https://api.twitter.com/1.1/";
 
   TwitterBase.prototype.setOAuth = function(method, api, params) {
     var accessor, authed_url, key, message;
@@ -96,7 +96,7 @@ API = (function(_super) {
   API.prototype.destroyStatus = function(id) {
     var params, url;
     params = id;
-    url = TwitterBase.prototype.setOAuth("POST", "" + TwitterBase.TWITTER_API + "statuses/destroy/" + id + ".xml", params);
+    url = TwitterBase.prototype.setOAuth("POST", "" + TwitterBase.TWITTER_API + "statuses/destroy/" + id + ".json", params);
     if (window.opera) {
       return TwitterBase.prototype.postIframe(url);
     } else {
@@ -110,7 +110,7 @@ API = (function(_super) {
       status: text,
       in_reply_to_status_id: in_reply_to_status_id
     };
-    url = TwitterBase.prototype.setOAuth("POST", "" + TwitterBase.TWITTER_API + "statuses/update.xml", params);
+    url = TwitterBase.prototype.setOAuth("POST", "" + TwitterBase.TWITTER_API + "statuses/update.json", params);
     if (window.opera) {
       return TwitterBase.prototype.postIframe(url);
     } else {
@@ -135,7 +135,7 @@ API = (function(_super) {
       callback: "callback",
       include_entities: "True"
     };
-    url = TwitterBase.prototype.setOAuth("GET", "" + TwitterBase.TWITTER_API + "statuses/mentions.json", params);
+    url = TwitterBase.prototype.setOAuth("GET", "" + TwitterBase.TWITTER_API + "statuses/mentions_timeline.json", params);
     return TwitterBase.prototype.loadJSON(url);
   };
 
@@ -156,7 +156,7 @@ API = (function(_super) {
       screen_name: screen_name,
       count: 40
     };
-    url = TwitterBase.prototype.setOAuth("GET", "" + TwitterBase.TWITTER_API + "lists.json", params);
+    url = TwitterBase.prototype.setOAuth("GET", "" + TwitterBase.TWITTER_API + "/lists/list.json", params);
     return TwitterBase.prototype.loadJSON(url);
   };
 
@@ -198,7 +198,7 @@ API = (function(_super) {
     params = {
       callback: "callback_retweeted_by_me"
     };
-    url = TwitterBase.prototype.setOAuth("GET", "" + TwitterBase.TWITTER_API + "statuses/retweeted_by_me.json", params);
+    url = TwitterBase.prototype.setOAuth("GET", "" + TwitterBase.TWITTER_API + "statuses/retweets_of_me.json", params);
     return TwitterBase.prototype.loadJSON(url);
   };
 
@@ -524,7 +524,7 @@ Oparate = (function(_super) {
   Oparate.prototype.createFav = function(id) {
     var params, url;
     params = null;
-    url = TwitterBase.prototype.setOAuth("POST", "" + TwitterBase.TWITTER_API + "favorites/create/" + id + ".xml", params);
+    url = TwitterBase.prototype.setOAuth("POST", "" + TwitterBase.TWITTER_API + "favorites/create/" + id + ".json", params);
     if (window.opera) {
       return TwitterBase.prototype.postIframe(url);
     } else {
@@ -535,7 +535,7 @@ Oparate = (function(_super) {
   Oparate.prototype.destroyFav = function(id) {
     var params, url;
     params = null;
-    url = TwitterBase.prototype.setOAuth("POST", "" + TwitterBase.TWITTER_API + "favorites/destroy/" + id + ".xml", params);
+    url = TwitterBase.prototype.setOAuth("POST", "" + TwitterBase.TWITTER_API + "favorites/destroy/" + id + ".json", params);
     if (window.opera) {
       return TwitterBase.prototype.postIframe(url);
     } else {
@@ -550,7 +550,7 @@ Oparate = (function(_super) {
       return false;
     }
     params = null;
-    url = TwitterBase.prototype.setOAuth("POST", "" + TwitterBase.TWITTER_API + "statuses/retweet/" + id + ".xml", params);
+    url = TwitterBase.prototype.setOAuth("POST", "" + TwitterBase.TWITTER_API + "statuses/retweet/" + id + ".json", params);
     if (window.opera) {
       return TwitterBase.prototype.postIframe(url);
     } else {
