@@ -2,7 +2,6 @@
 ===========================
 
 #URL
-http://skz3.altnight.net/
 
 #スカンディナヴィア半島3はWebブラウザ上で動くだらっとTwitterのListやTLを俯瞰するクライアントです。
 - Webクライアントなため、OS依存になりません
@@ -10,7 +9,6 @@ http://skz3.altnight.net/
 - OAuthが若干手間ですがブラウザ毎に1度だけ、コピペでできます
 - 動作確認は Chrome 18, Opera 11.62 で確認してます。たぶんFirefoxでも動きます。IE？知りません
 - ちなみにPubcリストをとってくるだけとかSearchするだけならOAuthしなくても使えます(警告がウザいかもだけど)
-- 作成者::<a href="https://twitter.com/#!/altnight/">@altnight</a>
 
 #注意点とか
 - エラー処理がてきとうなので微妙な挙動をします
